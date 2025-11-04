@@ -1,4 +1,4 @@
-from __future__ import annotations
+from _future_ import annotations
 
 from src.model.formulario import (
     ErrorFormulario,
@@ -8,9 +8,9 @@ from src.model.formulario import (
 )
 from src.view.app_view import AppView
 
-class Controlador:
 
-    def __init__(self):
+class Controlador:
+    def _init_(self):
         self.formulario = Formulario()
         self.vista = AppView()
 
@@ -27,7 +27,9 @@ class Controlador:
             self.formulario.empresa = self.formulario._empresa(datos['empresa'])
 
             self.vista.mostrar_mensaje("Éxito"" Formulario procesado correctamente.")
+            return self.formulario
         except (ErrorFormulario, LetraInvalidaError, NumeroInvalidoError, ValueError) as e:
             self.vista.mostrar_error(f"Error en el formulario: {str(e)}")
         except Exception as e:
             self.vista.mostrar_error(f"Error inesperado: {str(e)}")
+

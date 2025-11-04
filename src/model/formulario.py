@@ -78,7 +78,7 @@ class Formulario:
         try:
             numero = int(numero_hijos)
         except ValueError:
-            raise LetraInvalidaError("Debe ingresar un número válido.")
+            raise LetraInvalidaError("Porfavor no ingrese.")
 
         if numero < 0 or numero > 10:
             raise ValueError("El número deve estar entre 0 y 10.")
