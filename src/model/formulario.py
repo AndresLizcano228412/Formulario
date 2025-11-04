@@ -15,16 +15,16 @@ class NumeroInvalidoError(Exception):
 
 class Formulario:
 
-    def __init__(self, nombre, apellido, numero_id, fecha_nacimiento, correo, direccion, numero_hijos, cargo, empresa):
-        self.nombre = self._nombre(nombre)
-        self.apellido = self._apellido(apellido)
-        self.numero_id = self._numero_identificacion(numero_id)
-        self.fecha_nacimiento = self._fecha_nacimiento(fecha_nacimiento)
-        self.correo = self._correo_electronico(correo)
-        self.direccion = self._direccion_correspondencia(direccion)
-        self.numero_hijos = self._numero_hijos(numero_hijos)
-        self.cargo = self._cargo(cargo)
-        self.empresa = self._empresa(empresa)
+    def _init_(self):
+        self.nombre = ""
+        self.apellido = ""
+        self.numero_id = None
+        self.fecha_nacimiento = {"fecha": None, "edad": None}
+        self.correo = ""
+        self.direccion = ""
+        self.numero_hijos = None
+        self.cargo = ""
+        self.empresa = ""
 
     def _nombre(self, nombres: str):
         if any(char.isdigit() for char in nombres):
