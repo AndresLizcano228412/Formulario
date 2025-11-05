@@ -3,10 +3,10 @@ from tkinter import messagebox
 
 
 class AppView(tk.Tk):
-    def _init_(self, controlador=None):
-        super()._init_()
+    def __init__(self, controlador=None):
+        super().__init__()
         self.controlador = controlador
-        self.title("Formulario")
+        self.title("Rellena Tu Formulario")
         self.geometry("620x520")
         self.resizable(False, False)
 
@@ -18,35 +18,31 @@ class AppView(tk.Tk):
 
     def crear_campos(self):
         campos = [
+            "nombre", "apellido", "numero_id",
+            "fecha_nacimiento", "correo",
+            "direccion", "numero_hijos", "cargo", "empresa"
+        ]
+
+        etiquetas = [
             "Nombre", "Apellido", "Número de Identificación",
-            "Fecha de Nacimiento (YYYY/DD/MM)", "Correo",
+            "Fecha de Nacimiento (DD/MM/YYYY)", "Correo Electrónico",
             "Dirección", "Número de Hijos", "Cargo", "Empresa"
         ]
 
-        row = 0
-        for campo in campos:
-            tk.Label(self.frm, text=campo + ":").grid(row=row, column=0, sticky="w", pady=5)
+        for i, campo in enumerate(campos):
+            tk.Label(self.frm, text=etiquetas[i] + ":").grid(row=i, column=0, sticky="w", pady=5)
             entry = tk.Entry(self.frm, width=40)
-            entry.grid(row=row, column=1, pady=5)
+            entry.grid(row=i, column=1, pady=5)
             self.entries[campo] = entry
-            row += 1
 
-        tk.Button(self.frm, text="Enviar", command=self.enviar).grid(row=row, column=0, columnspan=2, pady=10)
+        tk.Button(self.frm, text="Enviar", command=self.enviar).grid(row=len(campos), column=0, columnspan=2, pady=10)
 
     def enviar(self):
-        datos = {}
-        for campo, entry in self.entries.items():
-            datos[campo.lower().replace(" ", "_")] = entry.get()
-
+        datos = {k: e.get() for k, e in self.entries.items()}
         if self.controlador:
-            try:
-                self.controlador.procesar_datos(datos)
-                self.mostrar_mensaje("Formulario procesado correctamente.")
-            except Exception as e:
-                self.mostrar_error(str(e))
+            self.controlador.procesar_datos(datos)
         else:
-            print("Datos ingresados:", datos)
-            self.mostrar_mensaje("Formulario ingresado (sin controlador).")
+            self.mostrar_mensaje("Formulario ingresado sin controlador")
 
     def mostrar_mensaje(self, mensaje: str):
         messagebox.showinfo("Éxito", mensaje)
@@ -54,22 +50,22 @@ class AppView(tk.Tk):
     def mostrar_error(self, mensaje: str):
         messagebox.showerror("Error", mensaje)
 
-    def mostrar_formulario_procesado(self, formulario_completo):
+    def mostrar_formulario_procesado(self, formulario):
         ventana = tk.Toplevel(self)
-        ventana.title("Formulario Procesado")
+        ventana.title("-----Toma tu formulario pues-----")
         ventana.geometry("400x400")
-        
+
         datos = {
-            "Nombre": formulario_completo.nombre,
-            "Apellido": formulario_completo.apellido,
-            "Número de ID": formulario_completo.numero_id,
-            "Fecha de Nacimiento": formulario_completo.fecha_nacimiento['fecha'],
-            "Edad": formulario_completo.fecha_nacimiento['edad'],
-            "Correo": formulario_completo.correo,
-            "Dirección": formulario_completo.direccion,
-            "Número de Hijos": formulario_completo.numero_hijos,
-            "Cargo": formulario_completo.cargo,
-            "Empresa": formulario_completo.empresa
+            "Nombre ": formulario.nombre,
+            "Apellido ": formulario.apellido,
+            "Número de ID ": formulario.numero_id,
+            "Fecha de Nacimiento ": formulario.fecha_nacimiento["fecha"],
+            "Edad ": formulario.fecha_nacimiento["edad"],
+            "Correo ": formulario.correo,
+            "Dirección ": formulario.direccion,
+            "Número de Hijos ": formulario.numero_hijos,
+            "Cargo ": formulario.cargo,
+            "Empresa ": formulario.empresa
         }
 
         row = 0

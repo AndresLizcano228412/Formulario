@@ -15,7 +15,7 @@ class NumeroInvalidoError(Exception):
 
 class Formulario:
 
-    def _init_(self):
+    def __init__(self):
         self.nombre = ""
         self.apellido = ""
         self.numero_id = None
@@ -55,14 +55,14 @@ class Formulario:
 
             nacimiento = datetime.strptime(fecha, "%d/%m/%Y").date()
         except ValueError:
-            raise ValueError("Formato inválido. Usa YYYY-DD-MM")
+            raise ValueError("Formato inválido. Usa DD/MM/YYYY")
 
         hoy = datetime.now().date()
         edad = hoy.year - nacimiento.year
         if (hoy.month, hoy.day) < (nacimiento.month, nacimiento.day):
             edad -= 1
 
-            return {"fecha": nacimiento, "edad": edad}
+        return {"fecha": nacimiento, "edad": edad}
 
     def _correo_electronico(self, correo: str):
         correo = correo.strip().lower()
