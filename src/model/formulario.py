@@ -17,11 +17,10 @@ class NumeroInvalidoError(Exception):
 
 # creamos la clase formulario
 class Formulario:
-    # creamos valores vacios para que reciba algo despues
+    # creamos valores vacios para que reciban algo despues
     def __init__(self):
         self.nombre = ""
         self.apellido = ""
-        # Atributo unificado: número de identificación
         self.numero_de_identificacion = ""
         self.fecha_nacimiento = {"fecha": None, "edad": 0}
         self.correo = ""
