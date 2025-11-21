@@ -8,7 +8,7 @@ class AppView(tk.Tk):
         super().__init__()  # inicializamos la clase padre tk.Tk
         self.controlador = controlador  # guardamos la referencia al controlador
         self.title("Formulario")  # escojemos el titulo de la ventana
-        self.geometry("620x520")  # elejimos el tamaño de la ventana
+        self.geometry("520x620")  # elejimos el tamaño de la ventana
         self.resizable(False, False)  # que no puedan agrandar ni encojer la ventana
 
         self.frm = tk.Frame(self, padx=12, pady=12)  # creamos una marjen para que lo escrito no slaga de hay
@@ -18,6 +18,7 @@ class AppView(tk.Tk):
         self.crear_campos()  # llamamos al metodo para crear los campos de entrada
 
     def crear_campos(self):
+        self.frm.columnconfigure(0, weight=1)
         # lista de los campos que van a aber
         campos = [
             ("Nombre", "nombre"),
@@ -33,9 +34,10 @@ class AppView(tk.Tk):
 
         row = 0  # esta es la fila inicial para colocar los campos
         for etiqueta, clave in campos:  # recorremos la lista de campos
-            tk.Label(self.frm, text=etiqueta + ":").grid(row=row, column=0, sticky="w", pady=5)  # creamos la etiqueta que va antes de e cuadro de escribir
+            tk.Label(self.frm, text=etiqueta, bg="green", fg="white").grid(row=row, column=0, pady=(10, 0), sticky="N")  # creamos la etiqueta que va antes de e cuadro de escribir
+            row += 1  # aumentamos la fila para colocar el cuadro de escribir debajo de la etiqueta
             entry = tk.Entry(self.frm, width=40)  # creamos el cuadro de escribir
-            entry.grid(row=row, column=1, pady=5)  # colocamos el cuadro en su pocicion
+            entry.grid(row=row, column=0, pady=5)  # colocamos el cuadro en su pocicion
             self.entries[clave] = entry  # guardamos la referencia del cuadro en el diccionario con su clave correspondiente
             row += 1  # aumentamos la fila para el siguiente campo
 
@@ -80,8 +82,8 @@ class AppView(tk.Tk):
             "Empresa": formulario_completo.empresa
         }
 
-        row = 0 # fila inicial
-        for etiqueta, valor in datos.items(): # recorremos los datos procesados
+        row = 0  # fila inicial
+        for etiqueta, valor in datos.items():  # recorremos los datos procesados
             tk.Label(ventana, text=f"{etiqueta}:").grid(row=row, column=0, sticky="w", padx=10, pady=5)
             tk.Label(ventana, text=str(valor)).grid(row=row, column=1, sticky="w", padx=10, pady=5)  # convertimos el valor a cadena para mostrarlo
             row += 1
